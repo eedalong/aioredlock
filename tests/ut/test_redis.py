@@ -53,10 +53,7 @@ class TestInstance:
             assert instance._pool is None
             pool = await instance.connect()
 
-            create_pool.assert_called_once_with(
-                ('localhost', 6379),
-                db=0, password=None,
-                minsize=1, maxsize=100)
+            create_pool.assert_called_once_with(('localhost', 6379), minsize=1, maxsize=100)
             assert pool is fake_pool
             assert instance._pool is fake_pool
 
@@ -121,8 +118,8 @@ class TestRedis:
             redis = Redis(redis_two_connections, 10)
 
             calls = [
-                call(host='localhost', port=6379),
-                call(host='127.0.0.1', port=6378)
+                call('localhost', 6379),
+                call('127.0.0.1', 6378)
             ]
             mock_instance.assert_has_calls(calls)
             assert len(redis.instances) == 2

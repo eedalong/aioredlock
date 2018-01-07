@@ -5,9 +5,7 @@ from aioredlock import Aioredlock
 async def basic_lock():
     lock_manager = Aioredlock([{
         'host': 'localhost',
-        'port': 6379,
-        'db': 0,
-        'password': None
+        'port': 6379
     }])
 
     lock = await lock_manager.lock("resource")
